@@ -173,29 +173,6 @@ func (c *Client) Register(ctx context.Context, svc *registry.ServiceInstance, en
 		Tags:            []string{fmt.Sprintf("version=%s", svc.Version)},
 		TaggedAddresses: addresses,
 	}
-	// 支持自定义tags
-	if svc.Metadata != nil {
-		if tagStr, ok := svc.Metadata["tags"]; ok && tagStr != "" {
-			tags := strings.Split(tagStr, ",")
-			for _, tag := range tags {
-				tag = strings.TrimSpace(tag)
-				if tag == "" {
-					continue
-				}
-				// 避免重复
-				found := false
-				for _, exist := range asr.Tags {
-					if exist == tag {
-						found = true
-						break
-					}
-				}
-				if !found {
-					asr.Tags = append(asr.Tags, tag)
-				}
-			}
-		}
-	}
 	if len(checkAddresses) > 0 {
 		host, portRaw, _ := net.SplitHostPort(checkAddresses[0])
 		port, _ := strconv.ParseInt(portRaw, 10, 32)
