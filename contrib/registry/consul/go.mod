@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/contrib/registry/consul/v2
+module github.com/hujia7812556/kratos/contrib/registry/consul/v2
 
 go 1.21
 
